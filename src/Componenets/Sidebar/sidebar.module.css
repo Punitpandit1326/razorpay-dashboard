@@ -1,0 +1,72 @@
+.sidebar {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  background-color: #f4f6fb;
+
+  & h6 {
+    white-space: nowrap;
+    color: rgb(64, 86, 109);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-style: normal;
+    padding: 0px;
+    margin: 8px 24px;
+  }
+
+  & p {
+    white-space: nowrap;
+    cursor: pointer;
+    color: rgb(46, 91, 255);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.125rem;
+    letter-spacing: 0px;
+    margin: 8px 24px;
+    padding: 0px;
+  }
+}
+
+.logo {
+  margin: 0 0 1.5rem 1.8rem;
+
+  & img {
+    max-width: 100%;
+    display: inline-block;
+    width: auto;
+    height: 28px;
+  }
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+}
+
+.sidebar ul li a {
+  white-space: nowrap;
+  color: rgb(64, 86, 109);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.6rem 1.1rem;
+  text-decoration-line: none;
+  font-family: Inter, "Inter Fallback Arial", Arial;
+}
+
+.sidebar ul li.active {
+  /* padding: 0.6rem 1.2rem; */
+  background-image: url("/public/img/sidebar_selector.svg");
+  background-repeat: no-repeat;
+  width: 12.5rem;
+  border-radius: 0.4rem;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+}
