@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./layout.module.css";
 import { Col, Row } from "react-bootstrap";
-import Sidebar from "../../Componenets/Sidebar/Sidebar";
 import Header from "../../Componenets/Header/Header";
+import Sidebar from "../../Componenets/Sidebar/Sidebar";
 
 const Layout = ({ children }) => {
   return (

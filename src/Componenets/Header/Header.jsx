@@ -17,7 +17,7 @@ const Header = () => {
       </div>
       <div className="d-flex gap-3">
         <h6>
-          <img src="/img/check.png" alt="check" width="15" height="35" /> Live
+          <img src="/img/checkicon.svg" alt="check" width="15" height="35" /> Live
           Mode
           <MdKeyboardArrowDown />
         </h6>

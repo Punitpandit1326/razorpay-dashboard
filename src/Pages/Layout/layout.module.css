@@ -1,4 +1,11 @@
-.main_section{
-    background: #f4f6fb;
-    height: 100vh;
+.main_section {
+  padding: 0 1.7rem 1rem 2.5rem;
+  background: #f4f6fb;
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.main_section::-webkit-scrollbar{
+    display: none;
 }
