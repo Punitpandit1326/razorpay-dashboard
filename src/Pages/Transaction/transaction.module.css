@@ -1,0 +1,104 @@
+.overview_section {
+  width: 100%;
+  height: auto;
+  padding: 1.2rem;
+  position: relative;
+  background-color: rgb(248, 250, 252);
+  box-shadow: rgba(19, 38, 68, 0.1) 0px 2px 16px 0px;
+
+  & h6 {
+    color: rgb(25, 40, 57);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0px;
+  }
+
+  & p {
+    margin-top: -3px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: rgb(41, 80, 219);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+  }
+
+  .submenu {
+    padding: 0.6rem 0.6rem;
+    width: 15rem;
+    height: auto;
+    top: 2.8rem;
+    left: 7rem;
+    position: absolute;
+    box-shadow: rgba(19, 38, 68, 0.12) 0px 8px 24px 0px;
+    background-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-color: rgba(108, 132, 157, 0.18);
+    border-radius: 4px;
+
+    & ul {
+      padding: 0;
+    }
+
+    & ul li {
+      cursor: pointer;
+      list-style: none;
+      color: rgb(25, 40, 57);
+      font-family: Inter, "Inter Fallback Arial", Arial;
+      font-size: 0.875rem;
+      font-weight: 400;
+      padding: 0.6rem 1.2rem;
+    }
+
+    & li:hover {
+      border-radius: 4px;
+      background-color: rgba(231, 229, 229, 0.747);
+    }
+  }
+
+  .box_sec {
+    width: 100%;
+    height: auto;
+    background: #fff;
+
+    .collected_amount {
+      width: 100%;
+      height: auto;
+      padding: 1.2rem;
+      border-radius: 4px;
+      border: 1px solid #d9d9d9;
+      background-color: rgb(248, 250, 252);
+
+      & h1 {
+        margin-top: 0.6rem;
+        color: rgb(25, 40, 57);
+        font-family: "TASA Orbiter", "TASA Orbiter Fallback Arial", Arial;
+        font-size: 2rem;
+        font-weight: 400;
+      }
+
+      & span {
+        font-size: 0.875rem;
+        font-weight: 400;
+        margin: 0px 4px;
+        color: rgb(64, 86, 109);
+        font-family: Inter, "Inter Fallback Arial", Arial;
+      }
+    }
+
+    .gridContainer {
+      display: grid;
+      gap: 1rem;
+      margin: 1.2rem 0;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .box {
+      color: fff;
+      padding: 20px;
+      border-radius: 4px;
+      border: 1px solid #d9d9d9;
+      background-color: rgb(248, 250, 252);
+    }
+  }
+}

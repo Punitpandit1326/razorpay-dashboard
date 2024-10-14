@@ -42,6 +42,33 @@ const Insights = () => {
             </div>
           </Col>
         </Row>
+
+        <Row>
+          <Col>
+            <div className={styles.box}>
+              <div>
+                <h6>
+                  Refund count <FiInfo />
+                </h6>
+                <span>Last Week</span>
+                <h6 className="pt-3">0</h6>
+              </div>
+              <div className={styles.right_box}></div>
+            </div>
+          </Col>
+          <Col>
+            <div className={styles.box}>
+              <div>
+                <h6>
+                Refund failure count <FiInfo />
+                </h6>
+                <span>Last Week</span>
+                <h6 className="pt-3">0</h6>
+              </div>
+              <div className={styles.right_box}></div>
+            </div>
+          </Col>
+        </Row>
       </div>
     </React.Fragment>
   );

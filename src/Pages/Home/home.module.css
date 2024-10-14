@@ -1,4 +1,3 @@
-
 .hero_section {
   width: 100%;
   height: auto;
@@ -174,5 +173,52 @@
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0px;
+  }
+}
+
+.bottom_footer {
+  margin: 1.2rem 0;
+  display: flex;
+  gap: 0.2rem;
+
+  & p {
+    color: #8f96b3;
+    font-family: inter;
+    font-size: 0.7rem;
+  }
+  & a {
+    color: #8f96b3;
+    font-family: inter;
+    font-size: 0.7rem;
+  }
+
+  .help {
+    position: fixed;
+    bottom: var(--support-padding-bottom, 20px);
+    left: unset;
+    right: 40px;
+    width: 150px;
+    height: 44px;
+    border-radius: 100px;
+    cursor: pointer;
+    background-color: rgb(50, 70, 100);
+    transform-origin: center center;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px 5px 4px 0px;
+    color: rgba(255, 255, 255, 0.88);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    z-index: 10;
+
+    & h6 {
+      margin-left: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0;
+    }
   }
 }

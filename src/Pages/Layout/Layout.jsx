@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
           <Sidebar />
         </Col>
         <Col className="p-0" md={10}>
-        <Header/>
+          <Header />
           <div className={styles.main_section}>{children}</div>
         </Col>
       </Row>

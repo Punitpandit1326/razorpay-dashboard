@@ -1,7 +1,7 @@
 .main_section {
   padding: 0 1.7rem 1rem 2.5rem;
   background: #f4f6fb;
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 100%;
   overflow-y: scroll;
 }

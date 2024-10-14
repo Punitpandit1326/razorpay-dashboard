@@ -1,0 +1,85 @@
+.main_slider {
+  background-image: url("/public/img/product-recommendations.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  transition: background-color 0.9s ease;
+  position: relative;
+
+  & h5 {
+    color: rgb(255, 255, 255);
+    font-family: "TASA Orbiter", "TASA Orbiter Fallback Arial", Arial;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 0.8rem;
+  }
+}
+
+.cards {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  height: 25.2rem;
+  width: 17.7rem;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow-y: hidden;
+  transition: height 0.9s ease;
+  position: relative;
+
+  & h6 {
+    color: rgb(25, 40, 57);
+    font-family: inter;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.625rem;
+    padding: 0.3rem 0.7rem 0 0.8rem;
+  }
+
+  & p {
+    color: rgb(118, 142, 167);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    letter-spacing: 0px;
+    margin: 0px 0px 8px;
+    padding: 0 0.7rem 0 0.8rem;
+  }
+
+  & a {
+    padding-left: 0.8rem;
+    color: #007bff;
+    font-family: inter;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
+
+.child {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+  background: #fff;
+}
+
+.cards:hover .child {
+  background: #fff;
+  transform: translateY(-20px);
+}
+
+.knowMore {
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.cards:hover .knowMore {
+  display: block;
+}
+

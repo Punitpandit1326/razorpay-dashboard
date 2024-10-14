@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./home.module.css";
 import { Link } from "react-router-dom";
+import { PiDotBold } from "react-icons/pi";
 import { RxDotFilled } from "react-icons/rx";
+import { FaHeadphones } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
-import PaymentsOverview from "../../Componenets/Payment/PaymentsOverview";
+import Slider from "../../Componenets/Slider/Slider";
 import Insights from "../../Componenets/Insights/Insights";
+import PaymentsOverview from "../../Componenets/Payment/PaymentsOverview";
 
 const Home = () => {
   return (
@@ -49,6 +52,22 @@ const Home = () => {
       </div>
       <PaymentsOverview />
       <Insights />
+      <Slider />
+
+      <div className={styles.bottom_footer}>
+        <div className="d-flex mt-2">
+          {" "}
+          <p> © 2017-2024 Copyright Razorpay</p>{" "}
+          <PiDotBold className="text-secondary" />
+          <Link to={""}>Terms of Use</Link>{" "}
+          <PiDotBold className="text-secondary" />{" "}
+          <Link to={""}>Privacy Policy</Link>
+          <PiDotBold className="text-secondary" />
+        </div>
+        <div className={styles.help}>
+            <h6> <FaHeadphones/> Help & Suppport</h6>
+        </div>
+      </div>
     </React.Fragment>
   );
 };
