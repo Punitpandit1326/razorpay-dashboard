@@ -1,0 +1,62 @@
+/* -------table-section------------ */
+
+.campaings-table-section {
+  width: 98%;
+  margin: 0 auto;
+}
+
+.campaings-table-section .table {
+  width: 98%;
+  margin: 0 10px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  border-bottom: none;
+
+  & h6 {
+    color: rgb(25, 40, 57);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 12px 0px 0px;
+  }
+
+  & p {
+    color: rgb(25, 40, 57);
+    font-family: Inter, "Inter Fallback Arial", Arial;
+    font-size: 0.875rem;
+    font-weight: 400;
+    text-align: center;
+  }
+}
+
+.campaings-table thead th {
+  border-top: 1px solid #d9d9d9 !important;
+  border-bottom: 1px solid #d9d9d9 !important;
+  background-color: rgb(248, 250, 252) !important;
+}
+
+.campaings-table tbody tr {
+  border-bottom: none !important;
+}
+.campaings-table tbody tr {
+  border-bottom: 1px solid #d9d9d9 !important;
+}
+
+.table thead th {
+  border-bottom: none;
+  height: 50px;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-family: inter;
+  padding-bottom: 13px;
+  background-color: #dfdfdf;
+}
+
+.table tbody {
+  border-bottom: none;
+}

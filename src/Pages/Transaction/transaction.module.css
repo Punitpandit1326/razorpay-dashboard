@@ -57,6 +57,7 @@
   }
 
   .box_sec {
+    padding: 0.6rem 0 0.1rem;
     width: 100%;
     height: auto;
     background: #fff;
@@ -99,6 +100,81 @@
       border-radius: 4px;
       border: 1px solid #d9d9d9;
       background-color: rgb(248, 250, 252);
+
+      & a {
+        cursor: pointer;
+        display: none;
+        font-size: 1rem;
+        color: rgb(46, 91, 255);
+      }
+
+      & a:hover {
+        display: block !important;
+      }
+
+      & span {
+        color: rgb(25, 40, 57);
+        font-family: "TASA Orbiter", "TASA Orbiter Fallback Arial", Arial;
+        font-size: 1rem;
+        font-weight: 400;
+        opacity: 0.64;
+      }
+
+      & h6 {
+        color: rgb(23, 27, 32);
+        font-family: "TASA Orbiter", "TASA Orbiter Fallback Arial", Arial;
+        font-size: 0.9rem;
+        padding-left: 8px;
+        font-weight: 400;
+        opacity: 0.64;
+      }
+    }
+  }
+}
+
+.bottom_footer {
+  margin: 1.2rem 0;
+  display: flex;
+  gap: 0.2rem;
+
+  & p {
+    color: #8f96b3;
+    font-family: inter;
+    font-size: 0.7rem;
+  }
+  & a {
+    color: #8f96b3;
+    font-family: inter;
+    font-size: 0.7rem;
+  }
+
+  .help {
+    position: fixed;
+    bottom: var(--support-padding-bottom, 20px);
+    left: unset;
+    right: 40px;
+    width: 150px;
+    height: 44px;
+    border-radius: 100px;
+    cursor: pointer;
+    background-color: rgb(50, 70, 100);
+    transform-origin: center center;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px 5px 4px 0px;
+    color: rgba(255, 255, 255, 0.88);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    z-index: 10;
+
+    & h6 {
+      margin-left: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0;
     }
   }
 }
