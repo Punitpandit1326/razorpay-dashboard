@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./settle.module.css";
+import { LuCopy } from "react-icons/lu";
 import { Row, Col, Form } from "react-bootstrap";
 import { CiClock2, CiShare1 } from "react-icons/ci";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
@@ -152,8 +153,22 @@ const Settlement = () => {
                 payments.map((payment, index) => (
                   <tr key={index} className={styles.tableRow}>
                     <td>{payment.createdOn}</td>
-                    <td className="text-center">{payment.settle}</td>
-                    <td className="text-center">{payment.UTR}</td>
+                    <td className="text-center">{payment.settle}
+                    <LuCopy
+                        className={styles.copyIcon}
+                        onClick={() =>
+                          navigator.clipboard.writeText(payment.settle)
+                        }/>
+                    </td>
+                    <td className="text-center">
+                      {payment.UTR}{" "}
+                      <LuCopy
+                        className={styles.copyIcon}
+                        onClick={() =>
+                          navigator.clipboard.writeText(payment.UTR)
+                        }
+                      />
+                    </td>
                     <td className="text-center">
                       {payment.amount} <IoMdInformationCircleOutline />
                     </td>
@@ -165,14 +180,8 @@ const Settlement = () => {
                     <td className="text-primary">
                       {payment.anchor} <MdOutlineKeyboardArrowRight />
                     </td>
-                    <td className={styles.copyButtonCell}>
-                      <button
-                        className={styles.copyButton}
-                        onClick={() =>navigator.clipboard.writeText(payment.UTR) }
-                      >
-                        Copy UTR
-                      </button>
-                    </td>
+                
+                    
                   </tr>
                 ))
               ) : (

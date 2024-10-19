@@ -137,33 +137,28 @@
   }
 
 }
-
-
 .tableRow {
   transition: background-color 0.3s ease;
 }
 
 .tableRow:hover {
-  background-color: #f9f9f9; /* Add a slight background change on hover */
+  background-color: #f9f9f9; 
 }
 
-.copyButtonCell {
-  visibility: hidden; 
-}
 
-.tableRow:hover .copyButtonCell {
-  visibility: visible; 
-}
-
-.copyButton {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.copyIcon {
+  visibility: hidden;
   cursor: pointer;
+  margin-left: 5px; 
+  color: #58666e; 
 }
 
-.copyButton:hover {
-  background-color: #0056b3; /* Darken the button on hover */
+
+.tableRow:hover .copyIcon {
+  visibility: visible;
+}
+
+
+.copyIcon:hover {
+  color: #58666e;
 }
