@@ -8,7 +8,8 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import Slider from "../../Componenets/Slider/Slider";
 import Insights from "../../Componenets/Insights/Insights";
 import PaymentsOverview from "../../Componenets/Payment/PaymentsOverview";
-import { format } from "date-fns";
+import { format, getHours } from "date-fns";
+import FormatAmount from "../../Componenets/Formatting/FormatAmount";
 
 const Home = () => {
   const [userName, setUserName] = useState("John Doe");
@@ -16,14 +17,28 @@ const Home = () => {
   const [status, setStatus] = useState("Processed");
   const [lastSettlement, setLastSettlement] = useState("0.00");
   const [depositDate, setDepositDate] = useState("2024-08-02");
-  const currentDate = format(new Date(), 'EEE, MMM dd');
+  const currentDate = format(new Date(), "EEE, MMM dd");
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
     });
+  };
+
+  const currentHour = getHours(new Date());
+
+  const greeting = () => {
+    if (currentHour >= 5 && currentHour < 12) {
+      return "Good Morning";
+    } else if (currentHour >= 12 && currentHour < 17) {
+      return "Good Afternoon";
+    } else if (currentHour >= 17 && currentHour < 21) {
+      return "Good Evening";
+    } else {
+      return "Good Night";
+    }
   };
 
   useEffect(() => {
@@ -54,7 +69,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <div className={styles.hero_section}>
-        <h1>Good Afternoon, {userName} !</h1>
+        <h1>{greeting()}, {userName} !</h1>
         <p>{currentDate}</p>
 
         {/* -------balance-section---------- */}
@@ -64,19 +79,23 @@ const Home = () => {
             <h6>Current balance</h6>
             <p>
               {" "}
-              <span className="text-secondary">₹ </span>{parseFloat(currentBalance).toFixed(0)}<span>.00</span>{" "}
+              <span className="text-secondary">₹ </span>
+              {<FormatAmount amount={parseFloat(currentBalance)} />}
+              <span></span>{" "}
             </p>
           </div>
           <div className={styles.right_Section}>
             <h6>Last Settlement</h6>
             <p>
-              <span className="text-secondary">₹ </span>{parseFloat(lastSettlement).toFixed(0)}<span>.01</span>{" "}
+              <span className="text-secondary">₹ </span>
+              {<FormatAmount amount={parseFloat(lastSettlement)} />}
+              <span></span>{" "}
             </p>
             <div className="d-flex gap-1">
               <h2>{status}</h2>
               <h3>
-                <RxDotFilled /> Deposited in your bank account on {formatDate(depositDate)}{" "}
-                <RxDotFilled />
+                <RxDotFilled /> Deposited in your bank account on{" "}
+                {formatDate(depositDate)} <RxDotFilled />
               </h3>
               <Link to={""}>
                 View all settlements <FaArrowRightLong />

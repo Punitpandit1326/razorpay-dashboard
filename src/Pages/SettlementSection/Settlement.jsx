@@ -6,6 +6,7 @@ import { CiClock2, CiShare1 } from "react-icons/ci";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoMdRefresh, IoMdInformationCircleOutline } from "react-icons/io";
 import { format } from "date-fns";
+import FormatAmount from "../../Componenets/Formatting/FormatAmount";
 const Settlement = () => {
   const [currentBalance, setCurrentBalance] = useState("0.00");
   const [settlementDueToday, setSettlementDueToday] = useState("0.00");
@@ -95,7 +96,7 @@ const Settlement = () => {
                 Current balance
                 <IoMdInformationCircleOutline />
               </p>
-              <h6>₹ {currentBalance}</h6>
+              <h6>₹ {<FormatAmount amount={parseFloat(currentBalance)} />}</h6>
             </div>
           </Col>
           <Col>
@@ -104,7 +105,9 @@ const Settlement = () => {
                 Settlement due today
                 <IoMdInformationCircleOutline />
               </p>
-              <h6>₹ {settlementDueToday}</h6>
+              <h6>
+                ₹ {<FormatAmount amount={parseFloat(settlementDueToday)} />}
+              </h6>
             </div>
           </Col>
           <Col>
@@ -113,7 +116,9 @@ const Settlement = () => {
                 Previous settlement <IoMdInformationCircleOutline />
               </p>
               <div>
-                <h6>₹ {previousSettlement}</h6>
+                <h6>
+                  ₹ {<FormatAmount amount={parseFloat(previousSettlement)} />}
+                </h6>
                 <div className={styles.statusBadge}>
                   <IoMdInformationCircleOutline /> Processed
                 </div>
@@ -139,14 +144,20 @@ const Settlement = () => {
           <Row className="mb-3 mx-2">
             <Form.Group as={Col} md="2" controlId="validationCustom01">
               <Form.Label>Duration</Form.Label>
-              <Form.Select required 
-                    value={selectedRange}
-                    onChange={handleDropdownChange}>
+              <Form.Select
+                required
+                value={selectedRange}
+                onChange={handleDropdownChange}
+              >
                 <option value="All Time">All Time</option>
                 <option value="Last 7 days">Last 7 days</option>
                 <option value="Last 30 days">Last 30 days</option>
                 <option value="Last 90 days">Last 90 days</option>
-                <option value="Custom">Custom Range</option>
+                <option value="Jan 2024 - till date">
+                  Jan 2024 - till date
+                </option>
+                <option value="This financial year">This financial year</option>
+                <option value="Custom">Custom</option>
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="2" controlId="validationCustom02">
@@ -204,7 +215,12 @@ const Settlement = () => {
               {settlementData.length > 0 ? (
                 settlementData.map((payment, index) => (
                   <tr key={index} className={styles.tableRow}>
-                    <td>{format(new Date(payment.created_on), 'MMM dd yyyy, hh:mm a')}</td>
+                    <td>
+                      {format(
+                        new Date(payment.created_on),
+                        "MMM dd yyyy, hh:mm a"
+                      )}
+                    </td>
                     <td>
                       {payment.settlement_id}
                       <LuCopy
@@ -224,7 +240,12 @@ const Settlement = () => {
                       />
                     </td>
                     <td>
-                      {payment.net_Settlement} <IoMdInformationCircleOutline />
+                      {
+                        <FormatAmount
+                          amount={parseFloat(payment.net_Settlement)}
+                        />
+                      }{" "}
+                      <IoMdInformationCircleOutline />
                     </td>
                     <td>
                       <div className={styles.statusBadge}>
@@ -232,7 +253,7 @@ const Settlement = () => {
                       </div>
                     </td>
                     <td className="text-primary">
-                    Details <MdOutlineKeyboardArrowRight />
+                      Details <MdOutlineKeyboardArrowRight />
                     </td>
                   </tr>
                 ))

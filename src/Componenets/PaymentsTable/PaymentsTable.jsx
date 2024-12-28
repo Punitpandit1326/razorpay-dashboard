@@ -6,6 +6,7 @@ import { Form, Row, Col } from "react-bootstrap";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { format } from "date-fns";
+import FormatAmount from "../Formatting/FormatAmount";
 
 const PaymentsTable = () => {
   const [active, setActive] = useState("payments");
@@ -174,7 +175,7 @@ const PaymentsTable = () => {
                               "MMM dd yyyy, hh:mm a"
                             )}
                           </td>
-                          <td className="p-0">₹{parseFloat(transaction.amount).toFixed(2)}</td>
+                          <td className="p-0">₹{<FormatAmount amount={parseFloat(transaction.amount)} />}</td>
                           <td>
                             <div className={styles.statusBadge}>
                               <IoMdInformationCircleOutline />{" "}

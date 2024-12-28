@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import PaymentsTable from "../../Componenets/PaymentsTable/PaymentsTable";
 import { PiDotBold } from "react-icons/pi";
 import { FaHeadphones } from "react-icons/fa";
+import FormatAmount from "../../Componenets/Formatting/FormatAmount";
 
 const Transaction = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +80,9 @@ const Transaction = () => {
               <li onClick={() => handleOptionClick('Last 7 days')}>Last 7 days</li>
               <li onClick={() => handleOptionClick('Last 30 days')}>Last 30 days</li>
               <li onClick={() => handleOptionClick('Last 90 days')}>Last 90 days</li>
+              <li onClick={() => handleOptionClick('Jan 2024 - till date')}>Jan 2024 - till date</li>
+              <li onClick={() => handleOptionClick('This financial year')}>This financial year</li>
+              <li onClick={() => handleOptionClick('Custom')}>Custom</li>
             </ul>
           </div>
         )}
@@ -88,7 +92,7 @@ const Transaction = () => {
             <h6>
               Collected Amount <IoMdInformationCircleOutline />
             </h6>
-            <h1>₹{collectedAmount.toFixed(2)}</h1>
+            <h1>₹<FormatAmount amount={collectedAmount} /></h1>
             <span>from {capturedPayments} captured payments</span>
           </div>
           <div className={styles.gridContainer}>
@@ -108,9 +112,8 @@ const Transaction = () => {
                   className="text-black"
                   style={{ fontSize: "1.5rem", color: "#000" }}
                 >
-                  {refunds.toFixed(0)}
+                  {<FormatAmount amount={refunds} />}
                 </span>
-                <span className="text-secondary">.00</span>
               </h2>
               <h6>{processed} processed</h6>
             </div>
@@ -130,9 +133,8 @@ const Transaction = () => {
                   className="text-black"
                   style={{ fontSize: "1.5rem", color: "#000" }}
                 >
-                  {disputes.toFixed(0)}
+                  {<FormatAmount amount={disputes} />}
                 </span>
-                <span className="text-secondary">.00</span>
               </h2>
             <div className="d-flex">  <h6>{open} open</h6> <h6> <BsDot/> {underReview} under-reivew</h6></div>
             </div>
