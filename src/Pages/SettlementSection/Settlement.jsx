@@ -1,23 +1,69 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./settle.module.css";
 import { LuCopy } from "react-icons/lu";
 import { Row, Col, Form } from "react-bootstrap";
 import { CiClock2, CiShare1 } from "react-icons/ci";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoMdRefresh, IoMdInformationCircleOutline } from "react-icons/io";
+import { format } from "date-fns";
 const Settlement = () => {
-  const [payments, setPayments] = useState([
-    {
-      settle: "setl_OfxH9vz9sRvqsF",
-      amount: "₹ 82.00",
-      UTR: "CB0054156688",
-      recipt: "",
-      createdOn: "	28 Sep 2024, 05:03:09 pm",
-      status: "Processed",
-      anchor: "Details",
-    },
-  ]);
+  const [currentBalance, setCurrentBalance] = useState("0.00");
+  const [settlementDueToday, setSettlementDueToday] = useState("0.00");
+  const [previousSettlement, setPreviousSettlement] = useState("0.00");
+  const [settlementData, setSettlementData] = useState([]);
+  const [selectedRange, setSelectedRange] = useState("All Time");
 
+  const handleDropdownChange = (event) => {
+    setSelectedRange(event.target.value); // Update selected range
+  };
+
+  useEffect(() => {
+    const fetchSettlementOverviewData = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/settlement-overview-listing"
+        );
+        const result = await response.json();
+
+        if (result.status === "success") {
+          setCurrentBalance(result.data.current_balance);
+          setSettlementDueToday(result.data.settlement_due_today);
+          setPreviousSettlement(result.data.previous_settlement);
+        } else {
+          console.error("Failed to fetch settlement data");
+        }
+      } catch (error) {
+        console.error("Error fetching settlement data:", error);
+      }
+    };
+
+    fetchSettlementOverviewData();
+  }, []);
+
+  useEffect(() => {
+    const fetchSettlementData = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/settlement-payments-listing?filters[duration]=${selectedRange}`
+        );
+        const result = await response.json();
+
+        if (result.status === "success") {
+          setSettlementData(result.data);
+        } else {
+          console.error("Failed to fetch settlement data");
+        }
+      } catch (error) {
+        console.error("Error fetching settlement data:", error);
+      }
+    };
+
+    fetchSettlementData();
+  }, [selectedRange]);
+  // Conditional rendering: if settlementData is not available yet
+  // if (!settlementData) {
+  //   return <div>Loading...</div>; // Show a loading indicator while data is fetched
+  // }
   return (
     <React.Fragment>
       <div className={styles.settlement_header}>
@@ -46,10 +92,10 @@ const Settlement = () => {
           <Col>
             <div className={styles.box}>
               <p>
-                Upcoming settlement
+                Current balance
                 <IoMdInformationCircleOutline />
               </p>
-              <h6>₹ 0.00</h6>
+              <h6>₹ {currentBalance}</h6>
             </div>
           </Col>
           <Col>
@@ -58,7 +104,7 @@ const Settlement = () => {
                 Settlement due today
                 <IoMdInformationCircleOutline />
               </p>
-              <h6>₹ 0.00</h6>
+              <h6>₹ {settlementDueToday}</h6>
             </div>
           </Col>
           <Col>
@@ -67,7 +113,7 @@ const Settlement = () => {
                 Previous settlement <IoMdInformationCircleOutline />
               </p>
               <div>
-                <h6>₹82.01</h6>
+                <h6>₹ {previousSettlement}</h6>
                 <div className={styles.statusBadge}>
                   <IoMdInformationCircleOutline /> Processed
                 </div>
@@ -93,12 +139,14 @@ const Settlement = () => {
           <Row className="mb-3 mx-2">
             <Form.Group as={Col} md="2" controlId="validationCustom01">
               <Form.Label>Duration</Form.Label>
-              <Form.Select required>
-                <option value="">All Time</option>
-                <option value="1">1 Month</option>
-                <option value="3">3 Months</option>
-                <option value="6">6 Months</option>
-                <option value="12">12 Months</option>
+              <Form.Select required 
+                    value={selectedRange}
+                    onChange={handleDropdownChange}>
+                <option value="All Time">All Time</option>
+                <option value="Last 7 days">Last 7 days</option>
+                <option value="Last 30 days">Last 30 days</option>
+                <option value="Last 90 days">Last 90 days</option>
+                <option value="Custom">Custom Range</option>
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="2" controlId="validationCustom02">
@@ -137,51 +185,55 @@ const Settlement = () => {
                 <th className="text-start" scope="col">
                   Created on
                 </th>
-                <th scope="col" className="text-center">
+                <th scope="col" className="text-start">
                   Settlment ID
                 </th>
-                <th scope="col">
+                <th scope="col" className="text-start">
                   UTR number <IoMdInformationCircleOutline />
                 </th>
-                <th scope="col">Net SEttlement</th>
-                <th scope="col">Status</th>
+                <th scope="col" className="text-start">
+                  Net SEttlement
+                </th>
+                <th scope="col" className="text-start">
+                  Status
+                </th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              {payments.length > 0 ? (
-                payments.map((payment, index) => (
+              {settlementData.length > 0 ? (
+                settlementData.map((payment, index) => (
                   <tr key={index} className={styles.tableRow}>
-                    <td>{payment.createdOn}</td>
-                    <td className="text-center">{payment.settle}
-                    <LuCopy
-                        className={styles.copyIcon}
-                        onClick={() =>
-                          navigator.clipboard.writeText(payment.settle)
-                        }/>
-                    </td>
-                    <td className="text-center">
-                      {payment.UTR}{" "}
+                    <td>{format(new Date(payment.created_on), 'MMM dd yyyy, hh:mm a')}</td>
+                    <td>
+                      {payment.settlement_id}
                       <LuCopy
                         className={styles.copyIcon}
                         onClick={() =>
-                          navigator.clipboard.writeText(payment.UTR)
+                          navigator.clipboard.writeText(payment.settlement_id)
                         }
                       />
                     </td>
-                    <td className="text-center">
-                      {payment.amount} <IoMdInformationCircleOutline />
+                    <td>
+                      {payment.utr_no}{" "}
+                      <LuCopy
+                        className={styles.copyIcon}
+                        onClick={() =>
+                          navigator.clipboard.writeText(payment.utr_no)
+                        }
+                      />
                     </td>
-                    <td className="text-center">
+                    <td>
+                      {payment.net_Settlement} <IoMdInformationCircleOutline />
+                    </td>
+                    <td>
                       <div className={styles.statusBadge}>
                         <IoMdInformationCircleOutline /> {payment.status}
                       </div>
                     </td>
                     <td className="text-primary">
-                      {payment.anchor} <MdOutlineKeyboardArrowRight />
+                    Details <MdOutlineKeyboardArrowRight />
                     </td>
-                
-                    
                   </tr>
                 ))
               ) : (

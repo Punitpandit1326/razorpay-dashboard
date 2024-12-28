@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./table.module.css";
 import "./table.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { Form, Row, Col } from "react-bootstrap";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { format } from "date-fns";
 
 const PaymentsTable = () => {
   const [active, setActive] = useState("payments");
-  const [paymentsTable, setPaymentsTable] = useState([])
+  const [paymentsTable, setPaymentsTable] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [selectedRange, setSelectedRange] = useState("Today");
   const [payments, setPayments] = useState([
     {
       id: "order_P2ZTk41UsnI8Ce",
@@ -18,6 +23,30 @@ const PaymentsTable = () => {
     },
   ]);
 
+  const handleDropdownChange = (event) => {
+    setSelectedRange(event.target.value); // Update selected range
+  };
+
+  useEffect(() => {
+    const fetchTransactionData = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/transaction-payments-listing?filters[duration]=${selectedRange}`
+        );
+        const result = await response.json();
+
+        if (result.status === "success") {
+          setTransactions(result.data);
+        } else {
+          console.error("Failed to fetch transactions");
+        }
+      } catch (error) {
+        console.error("Error fetching transaction data:", error);
+      }
+    };
+
+    fetchTransactionData();
+  }, [selectedRange]);
 
   return (
     <React.Fragment>
@@ -46,16 +75,25 @@ const PaymentsTable = () => {
               <div className={styles.section}>
                 <div className="d-flex gap-2">
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
+                    value={selectedRange}
+                    onChange={handleDropdownChange}
                   >
-                    <option selected>Last 7 days</option>
-                    <option value="1">Today</option>
-                    <option value="2">Last 7 days</option>
-                    <option value="3">Three</option>
+                    <option value="Today">Today</option>
+                    <option value="Last 7 days">Last 7 days</option>
+                    <option value="Last 30 days">Last 30 days</option>
+                    <option value="Last 90 days">Last 90 days</option>
+                    <option value="Jan 2024 - till date">
+                      Jan 2024 - till date
+                    </option>
+                    <option value="This financial year">
+                      This financial year
+                    </option>
+                    <option value="Custom">Custom</option>
                   </select>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     <option selected>Payment method</option>
@@ -64,7 +102,7 @@ const PaymentsTable = () => {
                     <option value="3">Authenticated</option>
                   </select>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     <option selected>Status: All</option>
@@ -75,7 +113,7 @@ const PaymentsTable = () => {
                 </div>
                 <div className={styles.input_section}>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     <option selected>Payment ID</option>
@@ -97,23 +135,55 @@ const PaymentsTable = () => {
                       <th scope="col" className="text-start">
                         Payment ID
                       </th>
-                      <th scope="col">Bank RRN</th>
-                      <th scope="col">Customer Details</th>
-                      <th scope="col">Created on</th>
-                      <th scope="col">Amount</th>
-                      <th scope="col">Status</th>
+                      <th scope="col" className="text-start">
+                        Bank RRN
+                      </th>
+                      <th scope="col" className="text-start">
+                        Customer Details
+                      </th>
+                      <th scope="col" className="text-start">
+                        Created on
+                      </th>
+                      <th scope="col" className="text-start">
+                        Amount
+                      </th>
+                      <th scope="col" className="text-start">
+                        Status
+                      </th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {paymentsTable.length > 0 ? (
-                      paymentsTable.map((payment, index) => (
-                        <tr key={index}>
-                          <td>{payment.id}</td>
-                          <td>{payment.amount}</td>
-                          <td>{payment.attempt}</td>
-                          <td>{payment.recipt}</td>
-                          <td>{payment.createdOn}</td>
-                          <td>{payment.status}</td>
+                    {transactions.length > 0 ? (
+                      transactions.map((transaction, index) => (
+                        <tr key={transaction.id}>
+                          <td className="text-start p-0">
+                            {transaction.payment_id}
+                          </td>
+                          <td className="p-0">
+                            <p className="text-start mb-0">{transaction.bank_rrn}</p>
+                            <p className="text-start small-text">Credit Card</p>
+                          </td>
+                          <td className="p-0">
+                            <p className="text-start mb-0">{transaction.customer_detail}</p>
+                            <p className="text-start small-text">{transaction.customer_email}</p>
+                          </td>
+                          <td className="p-0">
+                            {format(
+                              new Date(transaction.created_on),
+                              "MMM dd yyyy, hh:mm a"
+                            )}
+                          </td>
+                          <td className="p-0">₹{parseFloat(transaction.amount).toFixed(2)}</td>
+                          <td>
+                            <div className={styles.statusBadge}>
+                              <IoMdInformationCircleOutline />{" "}
+                              {transaction.status}
+                            </div>
+                          </td>
+                          <td className="text-primary p-0">
+                            Details <MdOutlineKeyboardArrowRight />
+                          </td>
                         </tr>
                       ))
                     ) : (
