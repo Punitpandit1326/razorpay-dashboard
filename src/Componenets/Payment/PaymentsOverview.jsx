@@ -4,6 +4,7 @@ import styles from "./overview.module.css";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import ReactApexChart from "react-apexcharts";
 import FormatAmount from "../Formatting/FormatAmount";
+import { API_URL } from "../../config";
 
 const PaymentsOverview = () => {
   const [activeTab, setActiveTab] = useState("collect");
@@ -24,7 +25,7 @@ const PaymentsOverview = () => {
       // Function to fetch data from your API
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:8000/api/transaction-overview-listing?filters[duration]=${selectedOption}`);
+          const response = await fetch(`${API_URL}transaction-overview-listing?filters[duration]=${selectedOption}`);
           const result = await response.json();
           
           if (result.status === 'success') {

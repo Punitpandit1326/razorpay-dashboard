@@ -7,6 +7,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { format } from "date-fns";
 import FormatAmount from "../Formatting/FormatAmount";
+import { API_URL } from "../../config";
 
 const PaymentsTable = () => {
   const [active, setActive] = useState("payments");
@@ -32,7 +33,7 @@ const PaymentsTable = () => {
     const fetchTransactionData = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/transaction-payments-listing?filters[duration]=${selectedRange}`
+          `${API_URL}transaction-payments-listing?filters[duration]=${selectedRange}`
         );
         const result = await response.json();
 

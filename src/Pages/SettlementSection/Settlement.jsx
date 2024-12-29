@@ -7,6 +7,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { IoMdRefresh, IoMdInformationCircleOutline } from "react-icons/io";
 import { format } from "date-fns";
 import FormatAmount from "../../Componenets/Formatting/FormatAmount";
+import { API_URL } from "../../config";
 const Settlement = () => {
   const [currentBalance, setCurrentBalance] = useState("0.00");
   const [settlementDueToday, setSettlementDueToday] = useState("0.00");
@@ -22,7 +23,7 @@ const Settlement = () => {
     const fetchSettlementOverviewData = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/settlement-overview-listing"
+          `${API_URL}settlement-overview-listing`
         );
         const result = await response.json();
 
@@ -45,7 +46,7 @@ const Settlement = () => {
     const fetchSettlementData = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/settlement-payments-listing?filters[duration]=${selectedRange}`
+          `${API_URL}settlement-payments-listing?filters[duration]=${selectedRange}`
         );
         const result = await response.json();
 

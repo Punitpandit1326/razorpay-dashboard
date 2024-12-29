@@ -29,7 +29,7 @@ const Transaction = () => {
     // Function to fetch data from your API
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/transaction-overview-listing?filters[duration]=${selectedOption}`);
+        const response = await fetch(`${API_URL}transaction-overview-listing?filters[duration]=${selectedOption}`);
         const result = await response.json();
         
         if (result.status === 'success') {

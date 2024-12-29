@@ -10,6 +10,7 @@ import Insights from "../../Componenets/Insights/Insights";
 import PaymentsOverview from "../../Componenets/Payment/PaymentsOverview";
 import { format, getHours } from "date-fns";
 import FormatAmount from "../../Componenets/Formatting/FormatAmount";
+import { API_URL } from "../../config";
 
 const Home = () => {
   const [userName, setUserName] = useState("John Doe");
@@ -45,7 +46,7 @@ const Home = () => {
     const fetchDashboardData = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/dashboard-data-listing"
+          `${API_URL}dashboard-data-listing`
         );
         const result = await response.json();
 
